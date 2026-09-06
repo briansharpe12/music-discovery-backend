@@ -31,7 +31,7 @@ class ArtistServiceTest {
     }
 
     @Test
-    void createArtist() {
+    void shouldCreateArtist() {
         //Arrange   -- Setup proper scenario
         when(artistRepository.existsByNameIgnoreCase("The Weeknd")).thenReturn(false);
         Artist savedArtist = new Artist("The Weeknd");
@@ -134,16 +134,42 @@ class ArtistServiceTest {
 
     @Test
     void shouldThrowWhenUpdatingMissingArtist() {
-
         // Arrange
-        // findById(...) returns Optional.empty()
+        when(artistRepository.findById(400L)).thenReturn(Optional.empty());
 
         // Act + Assert
-        // updateArtist(...) should throw ResourceNotFoundException
+        assertThrows(ResourceNotFoundException.class, () -> artistService.updateArtist(400L, "Updated Name"));
 
-        // Verify
-        // findById(...) happened
-        // save(...) should NEVER happen
+        // Verify Proper Workflow occurred FindbyID + No Save
+        verify(artistRepository).findById(400L);
+        verify(artistRepository, never()).save(any(Artist.class));
+    }
+
+    @Test
+    void shouldDeleteArtist() {
+        //Arrange
+        Artist removingArtist = new Artist("The Beatles");
+        when(artistRepository.findById(10L)).thenReturn(Optional.of(removingArtist));
+
+        // Act
+        artistService.deleteArtist(10L);
+
+        //Verify
+        verify(artistRepository).findById(10L);
+        verify(artistRepository).deleteById(10L);
+    }
+
+    @Test
+    void shouldThrowWhenDeletingMissingArtist() {
+        // Arrange
+        when(artistRepository.findById(400L)).thenReturn(Optional.empty());
+
+        // Act + Assert
+        assertThrows(ResourceNotFoundException.class, () -> artistService.deleteArtist(400L));
+
+        //Verify
+        verify(artistRepository).findById(400L);
+        verify(artistRepository, never()).deleteById(anyLong());
     }
 
 }
