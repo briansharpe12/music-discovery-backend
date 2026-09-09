@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/artists")
@@ -49,11 +47,9 @@ public class ArtistController {
         return ResponseEntity.status(HttpStatus.OK).body(responseEntity);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArtist(@PathVariable Long id) {
         artistService.deleteArtist(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }
