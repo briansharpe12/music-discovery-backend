@@ -7,10 +7,4 @@ public record CreateArtistRequest(
         @Size(max = 200)
         String name
 
-)
-{
-
-
-
-
-}
+)  {}
