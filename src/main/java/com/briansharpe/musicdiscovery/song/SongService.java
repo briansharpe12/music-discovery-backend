@@ -19,7 +19,7 @@ public class SongService {
 
     public Song createSong(String title, Integer durationSeconds, Long artistId) {
         Artist songArtist = artistRepository.findById(artistId).orElseThrow(()
-                -> new IllegalArgumentException("Artist not found"));
+                -> new ResourceNotFoundException("Artist not found"));
 
         if (songRepository.existsByTitleIgnoreCaseAndArtistId(title, artistId)) {
             throw new IllegalArgumentException("Song by this artist already exists");
