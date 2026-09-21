@@ -41,10 +41,8 @@ public class SongServiceTest {
         Song song = new Song("Test Song",180, artist);
         when(songRepository.save(any(Song.class))).thenReturn(song);
 
-        //Act
+        //Act + Assert
         Song testResult = songService.createSong("Test Song", 180,10L);
-
-        //Assert
         assertEquals("Test Song",testResult.getTitle());
         assertEquals(180,testResult.getDurationSeconds());
         assertEquals("BrianSharpe", testResult.getArtist().getName());

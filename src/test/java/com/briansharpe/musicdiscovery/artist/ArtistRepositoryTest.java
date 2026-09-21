@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ArtistRepositoryTest {
 
-
     @Autowired
     private ArtistRepository artistRepository;
 
