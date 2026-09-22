@@ -40,8 +40,6 @@ class SongControllerTest {
         when(songService.createSong("Test Song Title", 300, 7L)).thenReturn(savedSong);
         CreateSongRequest clientRequestDTO = new CreateSongRequest("Test Song Title", 300, 7L);
         String requestJson = objectMapper.writeValueAsString(clientRequestDTO);
-
-
         // Act + Assert
         mockMvc.perform(post("/api/songs")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -61,17 +59,14 @@ class SongControllerTest {
         Artist artist = new Artist("Test Artist");
         Song savedSong = new Song("Test Song Title", 300, artist);
         when(songService.getSongById(3L)).thenReturn(savedSong);
-
         // Act + Assert
         mockMvc.perform(get("/api/songs/3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("Test Song Title"))
                 .andExpect(jsonPath("$.durationSeconds").value(300))
                 .andExpect(jsonPath("$.artistName").value("Test Artist"));
-
-
         // Verify
-        verify(songService).getSongById(20L);
+        verify(songService).getSongById(3L);
     }
 
 
@@ -88,7 +83,6 @@ class SongControllerTest {
         songList.add(song2);
         songList.add(song3);
         when(songService.getAllSongs()).thenReturn(songList);
-
         // Act + Assert
         mockMvc.perform(get("/api/songs"))
                 .andExpect(status().isOk())

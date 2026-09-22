@@ -55,7 +55,8 @@ class ArtistControllerTest {
         Artist savedArtist = new Artist("Controller Test Artist");
         when(artistService.getArtistById(100L)).thenReturn(savedArtist);
         //Act + Assert
-        mockMvc.perform(get("/api/artists/100")).andExpect(status().isOk()).andExpect(jsonPath("$.name").value("Controller Test Artist"));
+        mockMvc.perform(get("/api/artists/100")).andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Controller Test Artist"));
         //Verify
         verify(artistService).getArtistById(100L);
     }

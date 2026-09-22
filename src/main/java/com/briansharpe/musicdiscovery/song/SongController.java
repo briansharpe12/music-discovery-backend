@@ -23,7 +23,6 @@ public class SongController {
         SongResponse songResponse = new SongResponse(returnedSong.getId(), returnedSong.getTitle(), returnedSong.getDurationSeconds(),
                 returnedSong.getArtist().getId(), returnedSong.getArtist().getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(songResponse);
-
     }
 
     @GetMapping("/{id}")
@@ -32,7 +31,6 @@ public class SongController {
         SongResponse SongEntity = new SongResponse(returnedSong.getId(), returnedSong.getTitle(),
                 returnedSong.getDurationSeconds(),returnedSong.getArtist().getId(),returnedSong.getArtist().getName());
         return ResponseEntity.status(HttpStatus.OK).body(SongEntity);
-
     }
 
     @GetMapping
