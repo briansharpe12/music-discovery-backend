@@ -26,7 +26,7 @@ public class User {
     }
 
     @PrePersist
-    protected void onCreate() {createdAt = LocalDateTime.now();}
+    protected void onCreate() {if (createdAt == null) {createdAt = LocalDateTime.now();}}
 
     //Getters
     public Long getId() {return id;}
